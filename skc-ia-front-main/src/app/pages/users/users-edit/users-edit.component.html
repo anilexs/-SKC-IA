@@ -1,0 +1,54 @@
+<form (ngSubmit)="save()" [formGroup]="form">
+    <div class="flex items-center" mat-dialog-title>
+        <img *ngIf="contact?.image" [src]="contact?.image" class="avatar ltr:mr-5 rtl:ml-5" />
+
+        <h2 class="headline m-0 flex-auto">{{ form.get('pseudo').value || 'Nouvel utilisateur' }}</h2>
+
+        <button class="text-secondary" mat-dialog-close mat-icon-button type="button">
+            <mat-icon svgIcon="mat:close"></mat-icon>
+        </button>
+    </div>
+
+    <mat-divider class="-mx-6 text-border"></mat-divider>
+
+    <mat-dialog-content class="flex flex-col">
+        <mat-form-field class="mt-6">
+            <mat-label>Pseudo</mat-label>
+            <input cdkFocusInitial formControlName="pseudo" matInput>
+            <mat-icon class="ltr:mr-3 rtl:ml-3" matPrefix svgIcon="mat:person"></mat-icon>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Riot ID</mat-label>
+            <input formControlName="id_riot" matInput>
+            <mat-icon class="ltr:mr-3 rtl:ml-3" matPrefix svgIcon="mat:videogame_asset"></mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="flex-none">
+            <mat-label>Rôle</mat-label>
+            <mat-select formControlName="role" matInput>
+                <mat-option [value]="R.admin">Administrateur</mat-option>
+                <mat-option [value]="R.fondateur">Fondateur</mat-option>
+                <mat-option [value]="R.coach">Coach</mat-option>
+                <mat-option [value]="R.membre">Membre</mat-option>
+                <mat-option [value]="R.invite">Invité</mat-option>
+            </mat-select>
+            <mat-icon class="ltr:mr-3 rtl:ml-3" matPrefix svgIcon="mat:group"></mat-icon>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Mot de passe</mat-label>
+            <input *ngIf="isEdit" formControlName="password" placeholder="Laisser vide pour ne pas modifier" matInput>
+            <input *ngIf="!isEdit" formControlName="password" matInput>
+            <mat-icon class="ltr:mr-3 rtl:ml-3" matPrefix svgIcon="mat:lock"></mat-icon>
+        </mat-form-field>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close type="button">Annuler</button>
+        <button color="primary" mat-flat-button type="submit">
+            <ng-container *ngIf="isEdit">Mettre à jour l'utilisateur</ng-container>
+            <ng-container *ngIf="!isEdit">Créer l'utilisateur</ng-container>
+        </button>
+    </mat-dialog-actions>
+</form>

@@ -1,0 +1,6 @@
+<div id="back-image" [style.background-image]="backgroundImage"></div>
+<div id="page-map">
+    <h1>Formation {{ map.displayName }}</h1>
+
+    <img *ngIf="mapName" [src]="'/assets/maps/map-' + mapName + '.png'" style="max-height: 80vh;" />
+</div>
